@@ -14,6 +14,7 @@
   "author": "Evan White",
   "license": "MIT",
   "devDependencies": {
-    "cordova": "~3.5.0-0.2.7"
+    "cordova": "~3.5.0-0.2.7",
+    "ngrok": "~0.1.97"
   }
 }

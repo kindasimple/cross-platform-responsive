@@ -24,47 +24,42 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <meta name="msapplication-tap-highlight" content="no" />
         <title>Colors</title>
     </head>
     <body onload="loadColors()">
-      <div id="Demo" data-url="Demo" data-role="page">
-      <div data-role="header" data-theme="e" data-position="fixed">
-      <h1>Colors</h1>
-      </div>
 
-      <div data-role="content">
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-xs-12 column">
       <div id="target">Loading...</div>
-
       <script id="template" type="x-tmpl-mustache">
-      <ul id="colorlist" data-role="listview" data-filter="true">
+				<div class="list-group">
+					 <a href="#" class="list-group-item active">Colors</a>
       {{#colors}}
-        <li>
+        <div class="list-group-item">
           <a href="#{{hex}}">
             <div>
-              <div style="float: left; background: {{hex}}; width: 40px;height: 30px;">&nbsp;</div>
-              <span style="float: left;margin-left: 8px;">{{hex}}</span>
+              <div style="background: {{hex}}; width: 40px;height: 30px;">&nbsp;</div>
+              <span style="margin-left: 8px;">{{hex}}</span>
             </div>
           </a>
-        </li>
+        </div>
       {{/colors}}
-      </ul>
+					 <a class="list-group-item active"><span class="badge">14</span>Rainbow!</a>
+				</div>
       </script>
-
-      </div>
-
-      <div data-role="footer" data-position="fixed">
-      <h1>Rainbow!</h1>
-      </div>
-      </div>
+			</div>
+		</div>
+	</div>      
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="src/index.js"></script>
         <script type="text/javascript" src="lib/fastclick.js"></script>
         <script type="text/javascript" src="lib/mustache.js"></script>
-        <link rel="stylesheet" href="css/jquery.mobile-1.1.0.min.css">
-        <script type="text/javascript" src="lib/jquery-1.7.1.min.js"></script>
-        <script type="text/javascript" src="lib/jquery.mobile-1.1.0.min.js"></script>
+	<script type="text/javascript" src="lib/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="src/bootstrap.min.js"></script>
         <script type="text/javascript">
             window.addEventListener('load', function() {
                FastClick.attach(document.body);
@@ -82,7 +77,6 @@
 
               var rendered = Mustache.render(template, { colors: colors});
               $('#target').html(rendered);
-              $('#colorlist').listview();
             }
             function byte2Hex(n)
               {
