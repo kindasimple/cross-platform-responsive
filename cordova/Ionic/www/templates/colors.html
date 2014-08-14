@@ -1,0 +1,15 @@
+<ion-view title="Colors">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item ng-repeat="color in colors" href="#/app/colors/{{color.hex}}">
+          <div>
+            <div style="float: left; background: #{{color.hex}}; width: 40px;height: 30px;">&nbsp;</div>
+            <span style="float: left; margin-left: 8px;">{{color.hex}}</span>
+          </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
