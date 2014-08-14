@@ -27,7 +27,7 @@
         <meta name="msapplication-tap-highlight" content="no" />
         <title>Colors</title>
     </head>
-    <body onload="ShowColors()">
+    <body>
       <div id="Demo" data-url="Demo" data-role="page">
       <div data-role="header" data-theme="e" data-position="fixed">
       <h1>Colors</h1>
@@ -69,7 +69,10 @@
         <script type="text/javascript">
             window.addEventListener('load', function() {
                FastClick.attach(document.body);
+               ShowColors();
+               $('#colorlist').listview();
             }, false);
+
               app.initialize();
         </script>
     </body>
