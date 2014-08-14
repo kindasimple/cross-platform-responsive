@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="mustache.js"></script>
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+	<title>Colors</title>
+</head>
+<body onload="loadUser()">
+
+<div id="Demo" data-url="Demo" data-role="page">
+<div data-role="header" data-theme="e">
+<h1>Colors</h1>
+</div>
+
+<div data-role="content">
+<div id="target">Loading...</div>
+
+<script id="template" type="x-tmpl-mustache">
+<ul id="colorlist" data-role="listview" data-filter="true">
+{{#colors}}
+  <li>
+    <a href="#{{hex}}">
+			<div>
+				<div style="float: left; background: {{hex}}; width: 40px;height: 30px;">&nbsp;</div>
+	    	<span style="float: left;margin-left: 8px;">{{hex}}</span>
+			</div>
+    </a>
+  </li>
+{{/colors}}
+</ul>
+</script>
+
+</div>
+
+<div data-role="footer" data-position="fixed">
+<h1>Rainbow!</h1>
+</div>
+</div>
+
+<script type="text/javascript" >
+function loadUser() {
+  var template = $('#template').html();
+  Mustache.parse(template);   // optional, speeds up future uses
+  //http://krazydad.com/tutorials/makecolors.php
+  var rendered = Mustache.render(template, { colors: makeColorGradient(.3,.3,.3,0,2,4)});
+  $('#target').html(rendered);
+	$('#colorlist').listview();
+}
+function byte2Hex(n)
+  {
+    var nybHexString = "0123456789ABCDEF";
+    return String(nybHexString.substr((n >> 4) & 0x0F,1)) + nybHexString.substr(n & 0x0F,1);
+  }
+function RGB2Color(r,g,b)
+  {
+    return '#' + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
+  }
+function makeColorGradient(frequency1, frequency2, frequency3,
+                             phase1, phase2, phase3,
+                             center, width, len)
+  {
+    if (center == undefined)   center = 128;
+    if (width == undefined)    width = 127;
+    if (len == undefined)      len = 50;
+
+    var colors = [];
+    for (var i = 0; i < len; ++i)
+    {
+       var red = Math.sin(frequency1*i + phase1) * width + center;
+       var grn = Math.sin(frequency2*i + phase2) * width + center;
+       var blu = Math.sin(frequency3*i + phase3) * width + center;
+       colors.push({
+          hex: RGB2Color(red,grn,blu),
+          rgb: red + ',' + grn + ',' + blu
+        });
+    }
+		return colors;
+  }
+</script>
+
+</body>
+</html>
