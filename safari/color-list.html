@@ -4,10 +4,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="mustache.js"></script>
-
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css">
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
 	<title>Colors</title>
 </head>
 <body onload="loadUser()">
@@ -19,20 +15,23 @@
 
 <div data-role="content">
 <div id="target">Loading...</div>
+<style>
+*{margin: 0px; padding: 0px;}
+</style>
 
 <script id="template" type="x-tmpl-mustache">
-<ul id="colorlist" data-role="listview" data-filter="true">
+<table id="colorlist" border="1" style="border-collapse:collapse; border-color: #CCC; width:100%">
 {{#colors}}
-  <li>
+  <tr><td>
     <a href="#{{hex}}">
-			<div>
-				<div style="float: left; background: {{hex}}; width: 40px;height: 30px;">&nbsp;</div>
+			<div style="padding: 4px 12px 32px 8px; ">
+				<div style="float: left; background: {{hex}}; width: 40px;height: 30px; display: inline">&nbsp;</div>
 	    	<span style="float: left;margin-left: 8px;">{{hex}}</span>
 			</div>
     </a>
-  </li>
+  </td></tr>
 {{/colors}}
-</ul>
+</table>
 </script>
 
 </div>
@@ -43,14 +42,15 @@
 </div>
 
 <script type="text/javascript" >
-function loadUser() {
-  var template = $('#template').html();
+document.addEventListener("DOMContentLoaded", function() {
+
+  var template = document.querySelector("#template").innerHTML;
   Mustache.parse(template);   // optional, speeds up future uses
   //http://krazydad.com/tutorials/makecolors.php
   var rendered = Mustache.render(template, { colors: makeColorGradient(.3,.3,.3,0,2,4)});
-  $('#target').html(rendered);
-	$('#colorlist').listview();
-}
+	document.querySelector("#target").innerHTML = rendered;
+});
+
 function byte2Hex(n)
   {
     var nybHexString = "0123456789ABCDEF";

@@ -27,7 +27,7 @@
         <meta name="msapplication-tap-highlight" content="no" />
         <title>Colors</title>
     </head>
-    <body onload="loadColors()">
+    <body onload="ShowColors()">
       <div id="Demo" data-url="Demo" data-role="page">
       <div data-role="header" data-theme="e" data-position="fixed">
       <h1>Colors</h1>
@@ -60,6 +60,7 @@
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="src/index.js"></script>
+        <script type="text/javascript" src="src/colors.js"></script>
         <script type="text/javascript" src="lib/fastclick.js"></script>
         <script type="text/javascript" src="lib/mustache.js"></script>
         <link rel="stylesheet" href="css/jquery.mobile-1.1.0.min.css">
@@ -68,53 +69,7 @@
         <script type="text/javascript">
             window.addEventListener('load', function() {
                FastClick.attach(document.body);
-            }, false); 
-            function loadColors() {
-              var template = $('#template').html();
-              Mustache.parse(template);   // optional, speeds up future uses
-              //http://krazydad.com/tutorials/makecolors.php
-              var redFrequency = .1;
-                  grnFrequency = .2;
-                  bluFrequency = .3;
-                  center = 128;
-                  width = 127;
-              var colors = makeColorGradient(redFrequency,grnFrequency,bluFrequency,0,0,0,center,width,150);
-
-              var rendered = Mustache.render(template, { colors: colors});
-              $('#target').html(rendered);
-              $('#colorlist').listview();
-            }
-            function byte2Hex(n)
-              {
-                var nybHexString = "0123456789ABCDEF";
-                return String(nybHexString.substr((n >> 4) & 0x0F,1)) + nybHexString.substr(n & 0x0F,1);
-              }
-            function RGB2Color(r,g,b)
-              {
-                return '#' + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
-              }
-            function makeColorGradient(frequency1, frequency2, frequency3,
-                                         phase1, phase2, phase3,
-                                         center, width, len)
-              {
-                if (center == undefined)   center = 128;
-                if (width == undefined)    width = 127;
-                if (len == undefined)      len = 50;
-
-                var colors = [];
-                for (var i = 0; i < len; ++i)
-                {
-                   var red = Math.sin(frequency1*i + phase1) * width + center;
-                   var grn = Math.sin(frequency2*i + phase2) * width + center;
-                   var blu = Math.sin(frequency3*i + phase3) * width + center;
-                   colors.push({
-                      hex: RGB2Color(red,grn,blu),
-                      rgb: red + ',' + grn + ',' + blu
-                    });
-                }
-                return colors;
-              }
-
+            }, false);
               app.initialize();
         </script>
     </body>

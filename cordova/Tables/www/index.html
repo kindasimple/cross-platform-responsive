@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <title>Hello World</title>
+    </head>
+    <body onload="ShowColors()">
+<div id="Demo" style="background: white">
+<div data-role="header" data-theme="e">
+<h1>Colors</h1>
+</div>
+
+<div data-role="content">
+<div id="target">Loading...</div>
+<style>
+*{margin: 0px; padding: 0px;}
+</style>
+
+<script id="template" type="x-tmpl-mustache">
+<table id="colorlist" border="1" style="border-collapse:collapse; border-color: #CCC; width:100%">
+{{#colors}}
+  <tr><td>
+    <a href="#{{hex}}">
+			<div style="padding: 4px 12px 32px 8px; ">
+				<div style="float: left; background: {{hex}}; width: 40px;height: 30px; display: inline">&nbsp;</div>
+	    	<span style="float: left;margin-left: 8px;">{{hex}}</span>
+			</div>
+    </a>
+  </td></tr>
+{{/colors}}
+</table>
+</script>
+
+</div>
+
+<div data-role="footer" data-position="fixed">
+<h1>Rainbow!</h1>
+</div>
+</div>
+
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="src/index.js"></script>
+<script type="text/javascript" src="lib/mustache.js" ></script>
+<script type="text/javascript" src="js/colors.js" ></script>
+<script type="text/javascript" src="lib/fastclick.js"></script>
+<script type="text/javascript" >
+window.addEventListener('load', function() {
+   FastClick.attach(document.body);
+}, false);
+</script>
+
+    </body>
+</html>
