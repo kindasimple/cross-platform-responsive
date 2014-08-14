@@ -29,3 +29,9 @@ node_modules/cordova/bin/cordova create ios
 node_modules/cordova/bin/cordova build ios
 node_modules/cordova/bin/cordova serve ios
 ```
+
+### Credits
+
+[Jim Bumgardner](http://krazydad.com/about.php) coded the javascript color gradients that create the list items. Theres much more about color on his [website](http://krazydad.com/tutorials/makecolors.php).
+
+I used [Mobjectify](http://www.mobjectify.com/) mock up a quick UI.
