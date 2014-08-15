@@ -27,10 +27,10 @@
         <meta name="msapplication-tap-highlight" content="no" />
         <title>Hello World</title>
     </head>
-    <body onload="ShowColors()">
+    <body>
 <div id="Demo" style="background: white">
 <div data-role="header" data-theme="e">
-<h1>Colors</h1>
+<h1>Slideshow</h1>
 </div>
 
 <div data-role="content">
@@ -41,39 +41,91 @@
 
 <script id="template" type="x-tmpl-mustache">
 <table id="colorlist" border="1" style="border-collapse:collapse; border-color: #CCC; width:100%">
-{{#colors}}
-  <tr><td>
-    <a onclick="GoSlideshow()">
+{{#images}}
+  <tr><td id="slide{{index}}" style="display:none;">
+    {{{navigate "next >>" show=nextIndex hide=index}}}
 			<div style="padding: 4px 12px 32px 8px; ">
-				<div style="float: left; background: {{hex}}; width: 40px;height: 30px; display: inline">&nbsp;</div>
-	    	<span style="float: left;margin-left: 8px;">{{hex}}</span>
+				<img src="{{source}}">
+        {{name}}
 			</div>
-    </a>
   </td></tr>
-{{/colors}}
+{{/images}}
 </table>
 </script>
 
 </div>
 
 <div data-role="footer" data-position="fixed">
-<h1>Rainbow!</h1>
+  <div id="footTarget">Loading...</div>
+  <script id="footTemplate" type="x-tmpl-mustache">
+    {{#images}}
+    <div style="float: left;">
+      <img src="{{source}}" style="height:40px; padding: 4px 12px 4px 4px;"/>
+    </div>
+    {{/images}}
+  </script>
 </div>
 </div>
 
 
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="src/index.js"></script>
-<script type="text/javascript" src="lib/mustache.js" ></script>
-<script type="text/javascript" src="js/colors.js" ></script>
+<script type="text/javascript" src="lib/handlebars-v1.3.0.js" ></script>
 <script type="text/javascript" src="lib/fastclick.js"></script>
 <script type="text/javascript" >
 window.addEventListener('load', function() {
    FastClick.attach(document.body);
+   ShowSlideshow()
+   ShowFooter("#footTemplate", "#footTarget")
 }, false);
+var ShowFooter = function(template, target)
+{
+  var source = document.querySelector(template).innerHTML;
+  template = Handlebars.compile(source);   // optional, speeds up future uses
 
-function GoSlideshow(){
-  window.location = 'slideshow.html';
+  var rendered = template({ images: [
+    { index: 1, nextIndex: 2, name:"first", source:"img1.jpg"},
+    { index: 2, nextIndex: 1, name:"second", source:"img2.png"}
+    ]});
+  document.querySelector(target).innerHTML = rendered;
+};
+
+var ShowSlideshow = function(template, target) {
+if(typeof template === 'undefined'){
+  template = "#template";
+}
+if(typeof target === 'undefined'){
+  target = "#target";
+}
+
+  Handlebars.registerHelper('navigate', function(text, options) {
+    return new Handlebars.SafeString(
+      "<a onclick=\"show("+ options.hash['show'] + ", " + options.hash['hide'] +");\" href=\"slideshow.html#" + options.hash['show'] + "\">" + text + "</a>"
+    );
+  });
+
+  var source = document.querySelector(template).innerHTML;
+  template = Handlebars.compile(source);   // optional, speeds up future uses
+
+  var rendered = template({ images: [
+    { index: 1, nextIndex: 2, name:"first", source:"img1.jpg"},
+    { index: 2, nextIndex: 1, name:"second", source:"img2.png"}
+    ]});
+  document.querySelector(target).innerHTML = rendered;
+
+  var index = "1";
+  if(window.location.hash) {
+    // Fragment exists
+    index = window.location.hash.substring(1,window.location.hash.length);
+  }
+  var currentSlide = document.getElementById("slide"+index);
+  currentSlide.style.display = "block";
+};
+
+function show(show, hide)
+{
+  document.getElementById("slide"+show).style.display = "block";
+  document.getElementById("slide"+hide).style.display = "none";
 }
 </script>
 
