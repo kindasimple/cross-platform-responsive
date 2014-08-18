@@ -47,11 +47,20 @@ angular.module('starter.controllers', [])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('ColorsCtrl', function($scope) {
+.controller('ColorsCtrl', function($scope, $location) {
   $scope.colors = [
     { hex: '#FFF', rgb: '255,255,255' },
     { hex: '#000', rgb: '0,0,0' }
   ];
+
+    $scope.getItemHeight = function(item, index) {
+      //Make evenly indexed items be 10px taller, for the sake of example
+      return (index % 2) === 0 ? 50 : 60;
+    };
+
+    $scope.doNav = function(url, value){
+      $location.path(url + value);
+    };
 
   function byte2Hex(n)
   {

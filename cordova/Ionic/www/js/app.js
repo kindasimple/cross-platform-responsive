@@ -47,6 +47,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
+    .state('app.colorsRepeater', {
+      url: "/colorsRepeater",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/colorsRepeater.html",
+          controller: 'ColorsCtrl'
+        }
+      }
+    })
     .state('app.colors', {
       url: "/colors",
       views: {
